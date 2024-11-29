@@ -1,8 +1,8 @@
+
 # QRB Image Resize ROS Node
 qrb_ros_image_resize provide a ROS Node that enables input image downscaling using EVA acceleration.
 
 ## Overview
-
 Qualcomm's smart devices, use NV12 as the default image color space format. To embrace open source and facilitate developers in NV12 image to downscaling, we have developed the image resize ROS node that support EVA acceleration. The feature as follows:
 
 - Provide ROS node include
@@ -31,41 +31,51 @@ Qualcomm's smart devices, use NV12 as the default image color space format. To e
 - Input / output image receive/send with QRB ROS transport.
 - Hardware accelerates with EVA.
 
-## Build
-
+## Getting Started
 Currently, we only support NV12 color space format downscale that based on Qualcomm platform that support EVA acceleration.
 
-1. Setup environments follow this document 's [Set up the cross-compile environment.](https://docs.qualcomm.com/bundle/publicresource/topics/80-65220-2/develop-your-first-application_6.html?product=1601111740013072&facet=Qualcomm%20Intelligent%20Robotics%20(QIRP)%20Product%20SDK&state=releasecandidate) part
+### Prerequisites
 
-2. Create `ros_ws` directory in `<qirp_decompressed_workspace>/qirp-sdk/`
+- Create `ros_ws` directory in `<qirp_decompressed_workspace>/qirp-sdk/`
 
-3. Clone this repository under `<qirp_decompressed_workspace>/qirp-sdk/ros_ws`
-     ```bash
-     git clone https://github.com/quic-qrb-ros/lib_mem_dmabuf.git
-     git clone https://github.com/quic-qrb-ros/qrb_ros_transport.git
-     git clone https://github.com/quic-qrb-ros/qrb_ros_image_resize.git
-     ```
-4. Build this project
-     ```bash
-     export AMENT_PREFIX_PATH="${OECORE_TARGET_SYSROOT}/usr;${OECORE_NATIVE_SYSROOT}/usr"
-     export PYTHONPATH=${PYTHONPATH}:${OECORE_TARGET_SYSROOT}/usr/lib/python3.10/site-packages
+- Clone this repository under `<qirp_decompressed_workspace>/qirp-sdk/ros_ws`
+```
+git clone https://github.com/quic-qrb-ros/lib_mem_dmabuf.git
+git clone https://github.com/quic-qrb-ros/qrb_ros_transport.git
+git clone https://github.com/quic-qrb-ros/qrb_ros_image_resize.git
+```
 
-     colcon build --merge-install --cmake-args \
-       -DPython3_ROOT_DIR=${OECORE_TARGET_SYSROOT}/usr \
-       -DPython3_NumPy_INCLUDE_DIR=${OECORE_TARGET_SYSROOT}/usr/lib/python3.10/site-packages/numpy/core/include \
-       -DPYTHON_SOABI=cpython-310-aarch64-linux-gnu -DCMAKE_STAGING_PREFIX=$(pwd)/install \
-       -DCMAKE_PREFIX_PATH=$(pwd)/install/share \
-       -DBUILD_TESTING=OFF --continue-on-error
-     ```
-5. Push to the device & Install
-     ```bash
-     cd `<qirp_decompressed_workspace>/qirp-sdk/ros_ws/install`
-     tar czvf qrb_ros_image_resize.tar.gz lib share
-     scp qrb_ros_image_resize.tar.gz root@[ip-addr]:/opt/
-     ssh root@[ip-addr]
-     (ssh) tar -zxf /opt/qrb_ros_image_resize.tar.gz -C /opt/qcom/qirp-sdk/usr/
-     ```
-## Run
+### Env Setup
+
+- Setup environments follow this document 's [Set up the cross-compile environment.](https://docs.qualcomm.com/bundle/publicresource/topics/80-65220-2/develop-your-first-application_6.html?product=1601111740013072&facet=Qualcomm%20Intelligent%20Robotics%20(QIRP)%20Product%20SDK&state=releasecandidate) part
+
+## Building
+
+- To compile project from the source code, follow these steps:
+```bash
+export AMENT_PREFIX_PATH="${OECORE_TARGET_SYSROOT}/usr;${OECORE_NATIVE_SYSROOT}/usr"
+export PYTHONPATH=${PYTHONPATH}:${OECORE_TARGET_SYSROOT}/usr/lib/python3.10/site-packages
+
+colcon build --merge-install --cmake-args \
+	-DPython3_ROOT_DIR=${OECORE_TARGET_SYSROOT}/usr \
+	-DPython3_NumPy_INCLUDE_DIR=${OECORE_TARGET_SYSROOT}/usr/lib/python3.10/site-packages/numpy/core/include \
+	-DPYTHON_SOABI=cpython-310-aarch64-linux-gnu -DCMAKE_STAGING_PREFIX=$(pwd)/install \
+	-DCMAKE_PREFIX_PATH=$(pwd)/install/share \
+	-DBUILD_TESTING=OFF --continue-on-error
+```
+
+## Deployment
+
+- Push to the device & Install
+```bash
+cd `<qirp_decompressed_workspace>/qirp-sdk/ros_ws/install`
+tar czvf qrb_ros_image_resize.tar.gz lib share
+scp qrb_ros_image_resize.tar.gz root@[ip-addr]:/opt/
+ssh root@[ip-addr]
+(ssh) tar -zxf /opt/qrb_ros_image_resize.tar.gz -C /opt/qcom/qirp-sdk/usr/
+```
+
+### Running
 
 - Source this file to set up the environment on your device:
 
@@ -80,7 +90,7 @@ ssh root@[ip-addr]
 
 ```
 
-Run the ROS2 package.
+- Run the ROS2 package.
 
 ```
 (ssh) ros2 launch qrb_ros_image_resize qti_image_resize.launch.py
@@ -110,24 +120,37 @@ def generate_launch_description():
     )])
 ```
 
-## Acceleration 
+### Break down into end to end tests
 
-The image resize downscale process accelerate by EVA.
+After Run the ROS2 package, you can find the node that named "qrb_ros_image_resize".
 
-## Packages
+```
+ros2 node list
+```
 
-Will update in the future.
 
-## Resources
+## Contributing
 
-- [ROS2 Type Adaption](https://ros.org/reps/rep-2007.html)
+We would love to have you as a part of the QRB ROS community. Whether you are helping us fix bugs, proposing new features, improving our documentation, or spreading the word, please refer to our [contribution guidelines](./CONTRIBUTING.md) and [code of conduct](./CODE_OF_CONDUCT.md).
 
-## Contributions
+- Bug report: If you see an error message or encounter failures, please create a [bug report](../../issues)
+- Feature Request: If you have an idea or if there is a capability that is missing and would make development easier and more robust, please submit a [feature request](../../issues)
 
-Thanks for your interest in contributing to qrb_image_resize_lib! Please read our [Contributions Page](CONTRIBUTING.md) for more information on contributing features or bug fixes. We look forward to your participation!
+<Update link with template>
+
+
+## Documentation
+Please visit [QRB ROS Documentation](https://quic-qrb-ros.github.io/) for more details.
+
+
+## Authors
+
+* **Shouyi Hu** - *Initial work* - [shouhu](https://github.com/quic-shouhu)
+
+See also the list of [contributors](https://github.com/quic-qrb-ros/qrb_ros_image_resize/graphs/contributors) who participated in this project.
+
 
 ## License
 
-qrb_image_resize_lib is licensed under the BSD-3-clause "New" or "Revised" License. 
+Project is licensed under the [BSD-3-clause License](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE](./LICENSE) for the full license text.
 
-Check out the [LICENSE](LICENSE) for more details.
