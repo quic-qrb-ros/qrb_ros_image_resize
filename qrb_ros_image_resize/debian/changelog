@@ -1,0 +1,7 @@
+ros-jazzy-qrb-ros-image-resize-opencv (1.0.0) noble; urgency=high
+
+  * Debian package for qrb_ros_image_resize_opencv (1.0.0)
+
+ -- Shouyi Hu <quic_shouhu@quicinc.com>  Thu, 03 Sep 2026 02:11:03 -0000
+
+

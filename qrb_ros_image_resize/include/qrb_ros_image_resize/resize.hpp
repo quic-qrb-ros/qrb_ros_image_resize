@@ -10,8 +10,8 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
 
-#include "cv_bridge/cv_bridge.h"
-#include "qrb_ros_transport/type/image.hpp"
+#include "cv_bridge/cv_bridge.hpp"
+#include "qrb_ros_transport_image_type/image.hpp"
 
 #ifdef EVA_ENABLE
 #include "qrb_image_resize_lib/eva_utils_lib.hpp"

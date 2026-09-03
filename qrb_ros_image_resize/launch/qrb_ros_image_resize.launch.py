@@ -13,45 +13,22 @@ from launch_ros.descriptions import ComposableNode
 
 def generate_launch_description():
     composable_nodes = [
-#ResizeNode
         ComposableNode(
             package='qrb_ros_image_resize',
             plugin='qrb_ros::resize::ResizeNode',
             name='qrb_ros_image_resize',
             parameters=[{
-                #'calculate_enable':True,
                 'use_scale': False,
                 'height': 400,
                 'width': 400,
                 #'use_scale': True,
-                #'height_scale': 0.25,
-                #'width_scale': 0.25,
+                #'scale_height': 0.25,
+                #'scale_width': 0.25,
             }]),
-'''
-#TestPubNode
-        ComposableNode(
-            package='qrb_ros_image_resize',
-            plugin='qrb_ros::resize::TestPubNode',
-            name='TestPubNode',
-            ),
-#TestSubNode
-        ComposableNode(
-            package='qrb_ros_image_resize',
-            plugin='qrb_ros::resize::TestSubNode',
-            name='TestSubNode',
-            ),
-'''
     ]
 
     container = ComposableNodeContainer(
-#ResizeNode
         name='resize',
-'''
-#TestPubNode
-        name='pub',
-#TestPubNode
-        name='sub',
-'''
         namespace='container',
         package='rclcpp_components',
         executable='component_container',
