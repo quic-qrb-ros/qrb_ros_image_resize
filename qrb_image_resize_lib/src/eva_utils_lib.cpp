@@ -3,7 +3,7 @@
 
 #include "qrb_image_resize_lib/eva_utils_lib.hpp"
 
-#define ALIGN(x, y) (((x) + (y)-1) & (~((y)-1)))
+#define ALIGN(x, y) (((x) + (y) - 1) & (~((y) - 1)))
 
 namespace qrb::image::resize
 {

@@ -16,6 +16,8 @@ find_library(BUILD_EVA_ENABLE
   NO_DEFAULT_PATH
 )
 
+set(BUILD_EVA_DISABLE_FORCE ON)
+
 # add targets
 # Add targets resize library. if HW support EVA that EVA as default.
 # BUILD_EVA_DISABLE_FORCE != ON and BUILD_EVA_ENABLE is not empty then choice EVA.
